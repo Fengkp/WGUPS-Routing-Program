@@ -3,19 +3,12 @@ from src.Model.Package import Package
 
 
 def set_packages(packages_file):
-    package_table = Table(100)
+    new_table = Table(100)
     lines = packages_file.readlines()
-    row = [8]
     for line in lines:
-        row = line.split(',')
-        package = create_package(row)
-        package_table.insert(package.get_id(), package)
-    return package_table
-
-
-def create_package(row):
-    package = Package(row[0], row[1], row[2], row[4], row[5], row[6], row[7])
-    return package
+        package = Package(line.split(','))
+        new_table.insert(package.get_id(), package)
+    return new_table
 
 
 # **Handle exceptions
@@ -25,7 +18,7 @@ def new_package_prompt(package_count):
     print("** Type 'None' if there are no special notes.")
     new_package = input("> ")
     new_package = str(package_count + 1) + ', ' + new_package
-    return create_package(new_package.split(', '))
+    return new_package.split(', ')
 
 
 def find_package_prompt():
@@ -33,14 +26,13 @@ def find_package_prompt():
     return input("> ")
 
 
-def interface():
-    package_table = set_packages(open('../../files/packages.csv', 'r'))
+def package_interface():
     while True:
         print("Select an option using the number keys:")
         print("[1] Insert new package...")
         print("[2] Look up package...")
         print("[3] View all packages...")
-        print("[4] Exit...")
+        print("[4] Return...")
         response = input("> ")
         if response == str(1):
             new_package = new_package_prompt(package_table.get_size())
@@ -51,9 +43,27 @@ def interface():
         elif response == str(3):
             package_table.get_all()
         elif response == str(4):
+            main_interface()
+        else:
+            print("Please submit a valid response.")
+
+
+def main_interface():
+    while True:
+        print("[1] Manage Packages...")
+        print("[2] Start Deliveries...")
+        print("[3] Exit...")
+        response = input("> ")
+        if response == str(1):
+            package_interface()
+        elif response == str(2):
+            # Start TruckManagement
+            pass
+        elif response == str(3):
             exit()
         else:
             print("Please submit a valid response.")
 
 
-interface()
+package_table = set_packages(open('../../files/packages.csv', 'r'))
+main_interface()

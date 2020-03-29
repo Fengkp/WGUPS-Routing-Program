@@ -1,15 +1,15 @@
 class Package(object):
-    def __init__(self, id, address, city, zip, deadline, weight, notes):
-        self.id = id
-        self.address = address
-        self.city = city
-        self.zip = zip
-        self.deadline = deadline
-        self.weight = weight
-        if notes == "\n":
+    def __init__(self, new_package):
+        self.id = new_package[0]
+        self.address = new_package[1]
+        self.city = new_package[2]
+        self.zip = new_package[4]
+        self.deadline = new_package[5]
+        self.weight = new_package[6]
+        if new_package[7] == "\n":
             self.notes = "N/A"
         else:
-            self.notes = notes
+            self.notes = new_package[7]
         self.status = "Not Delivered."
 
     def get_id(self):
