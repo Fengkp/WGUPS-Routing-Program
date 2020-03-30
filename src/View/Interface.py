@@ -1,5 +1,7 @@
 from src.Model.HashTable import Table
 from src.Model.Package import Package
+from src.Model.Truck import Truck
+from src.Controller.TruckManagement import TruckManagement
 
 
 def set_packages(packages_file):
@@ -27,6 +29,7 @@ def find_package_prompt():
 
 
 def package_interface():
+    global package_table
     while True:
         print("Select an option using the number keys:")
         print("[1] Insert new package...")
@@ -41,7 +44,8 @@ def package_interface():
         elif response == str(2):
             print(package_table.get(find_package_prompt()))
         elif response == str(3):
-            package_table.get_all()
+            for package in package_table.get_all():
+                print(package)
         elif response == str(4):
             main_interface()
         else:
@@ -50,20 +54,27 @@ def package_interface():
 
 def main_interface():
     while True:
+        global eod
+        global package_table
         print("[1] Manage Packages...")
         print("[2] Start Deliveries...")
         print("[3] Exit...")
         response = input("> ")
         if response == str(1):
             package_interface()
-        elif response == str(2):
-            # Start TruckManagement
-            pass
+        elif response == str(2) and eod is False:
+            truck_management = TruckManagement(2)
+            truck_management.add_truck(Truck(1))
+            truck_management.add_truck(Truck(2))
+            truck_management.allocate_packages(package_table)
+            truck_management.deliver_packages()
+            eod = True
         elif response == str(3):
             exit()
         else:
             print("Please submit a valid response.")
 
 
+eod = False
 package_table = set_packages(open('../../files/packages.csv', 'r'))
 main_interface()

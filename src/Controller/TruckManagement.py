@@ -1,3 +1,6 @@
+from src.Controller import PackageAllocation
+
+
 # Manage truck deliveries
 class TruckManagement(object):
     def __init__(self, limit):
@@ -9,6 +12,11 @@ class TruckManagement(object):
         self.truck_list.append(truck)
 
 # Call PackageAllocation to determine a list of packages with the most optimal route.
+    def allocate_packages(self, package_table):
+        PackageAllocation.determine(package_table)
+
+    def deliver_packages(self):
+        pass
 
 # If a truck has 0 packages, it returns to HUB for more packages.
 # This will call PackageAllocation to look at remaining packages in the PackageTable

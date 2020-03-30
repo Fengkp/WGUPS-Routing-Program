@@ -15,6 +15,12 @@ class Package(object):
     def get_id(self):
         return self.id
 
+    def get_address(self):
+        return self.address
+
+    def get_zip(self):
+        return self.zip
+
     def __str__(self):
         return f"""Package ID: {self.id}
     Current Status: {self.status}

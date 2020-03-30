@@ -33,8 +33,10 @@ class Table:
             return None
 
     def get_all(self):
+        package_list = []
         for i in range(1, self.size + 1):
-            print(self.get(str(i)))
+            package_list.append(self.get(str(i)))
+        return package_list
 
     def get_size(self):
         return self.size
