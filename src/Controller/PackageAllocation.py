@@ -1,5 +1,3 @@
-from src.Model.HashTable import Table
-import csv
 # Algorithm to decide which packages go on which truck
 # Return packages in lists?
 
@@ -7,34 +5,39 @@ import csv
 # For now we'll just use the address.
 # In the future, the first address to be noted will be the hub address.
 # This address/distance will be referenced every time a truck runs out of packages.
-def determine(package_table):
-    global distance_dict
-    package_list = package_table.get_all()
-    delivery_miles = 0.0
+def determine():
+    from src.View.Interface import package_table
+    package_list = prepare_packages(package_table)
     delivery_list = []
-    for package in package_list:
-        delivery_list.append(package)
-    print(len(delivery_list))
-    for package in range(0, 15):
-        package_1_address = delivery_list[package].get_address() + ',' + delivery_list[package].get_zip()
-        package_2_address = delivery_list[package + 1].get_address() + ',' + delivery_list[package + 1].get_zip()
-        delivery_miles += compare_distance(package_1_address, package_2_address)
-    print(delivery_miles)
+    current_package = package_list[str(1)]
+    print(current_package.get_id())
+    del package_list[current_package.get_id()]
+    for item in current_package.get_distance_table().items():
+        if package_list.__contains__(item[0]):
+            pass
 
 
-def compare_distance(package_1, package_2):
-    global distance_dict
-    print(float(distance_dict[package_1][package_2]))
-    return float(distance_dict[package_1][package_2])
+# def reorder_package_list(package_list):
+#     packagelist
 
 
-def fill_address_dict():
-    with open('../../files/distance_table.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        origin_dict = dict()
-        for row in reader:
-            origin_dict.update({row['ORIGIN']: row})
-        return origin_dict
+# Returns a list of packages that are ready to be shipped. Packages with a status of 'On route' or 'Delivered'
+# will be excluded.
+def prepare_packages(package_table):
+    package_list = dict()
+    for package in package_table.get_all():
+        if package.get_status() == 'Preparing for shipment':
+            package_list.update({package.get_id(): package})
+    return package_list
 
 
-distance_dict = fill_address_dict()
+# Compare the distances between two packages, and a distance to not be exceed. If the distance between the two
+# packages is greater than a max_distance, then it'll return the distance in between the two packages, and 'True'
+# to signify that the distance is too far. Otherwise the method will return the distance in between, along with
+# 'False' to signify that the distance in between meets the preset criteria.
+def compare_distance(package_1, package_2, max_distance):
+    from src.View.Interface import distance_table
+    distance_in_between = float(distance_table[package_1][package_2])
+    if distance_in_between > 3.5:
+        return distance_in_between, True
+    return distance_in_between, False

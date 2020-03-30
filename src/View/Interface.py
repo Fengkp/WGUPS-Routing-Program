@@ -1,16 +1,6 @@
-from src.Model.HashTable import Table
-from src.Model.Package import Package
 from src.Model.Truck import Truck
+from src.PrepFiles import *
 from src.Controller.TruckManagement import TruckManagement
-
-
-def set_packages(packages_file):
-    new_table = Table(100)
-    lines = packages_file.readlines()
-    for line in lines:
-        package = Package(line.split(','))
-        new_table.insert(package.get_id(), package)
-    return new_table
 
 
 # **Handle exceptions
@@ -52,7 +42,7 @@ def package_interface():
             print("Please submit a valid response.")
 
 
-def main_interface():
+def main():
     while True:
         global eod
         global package_table
@@ -66,7 +56,7 @@ def main_interface():
             truck_management = TruckManagement(2)
             truck_management.add_truck(Truck(1))
             truck_management.add_truck(Truck(2))
-            truck_management.allocate_packages(package_table)
+            truck_management.allocate_packages()
             truck_management.deliver_packages()
             eod = True
         elif response == str(3):
@@ -75,6 +65,11 @@ def main_interface():
             print("Please submit a valid response.")
 
 
+distance_table, package_table = init_tables('../../files/distance_table.csv',
+                                            open('../../files/packages.csv', 'r'))
 eod = False
-package_table = set_packages(open('../../files/packages.csv', 'r'))
-main_interface()
+if __name__ == '__main__':
+    main()
+
+
+

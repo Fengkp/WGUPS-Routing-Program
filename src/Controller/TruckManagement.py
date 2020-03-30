@@ -12,8 +12,8 @@ class TruckManagement(object):
         self.truck_list.append(truck)
 
 # Call PackageAllocation to determine a list of packages with the most optimal route.
-    def allocate_packages(self, package_table):
-        PackageAllocation.determine(package_table)
+    def allocate_packages(self):
+        PackageAllocation.determine()
 
     def deliver_packages(self):
         pass

@@ -6,11 +6,20 @@ class Package(object):
         self.zip = new_package[4]
         self.deadline = new_package[5]
         self.weight = new_package[6]
+        self.distance_from_hub = 0.0
+        self.distance_table = dict()
         if new_package[7] == "\n":
             self.notes = "N/A"
         else:
             self.notes = new_package[7]
-        self.status = "Not Delivered."
+        self.status = 'Preparing for shipment'
+        # 'Preparing for shipment', 'On route', 'Delivered'
+
+    def set_distance_table(self, distances):
+        self.distance_table = distances
+
+    def get_distance_table(self):
+        return self.distance_table
 
     def get_id(self):
         return self.id
@@ -20,6 +29,9 @@ class Package(object):
 
     def get_zip(self):
         return self.zip
+
+    def get_status(self):
+        return self.status
 
     def __str__(self):
         return f"""Package ID: {self.id}
