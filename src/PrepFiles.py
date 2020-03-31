@@ -16,6 +16,7 @@ def fill_package_table(packages_file, distance_table):
     for line in lines:
         package = Package(line.split(','))
         package.set_distance_table(distance_table[package.get_address() + ',' + package.get_zip()])
+        package.set_hub_distance(package.get_distance_table()['HUB'])
         new_table.insert(package.get_id(), package)
     return new_table
 

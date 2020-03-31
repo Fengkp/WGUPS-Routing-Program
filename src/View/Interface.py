@@ -53,10 +53,10 @@ def main():
         if response == str(1):
             package_interface()
         elif response == str(2) and eod is False:
-            truck_management = TruckManagement(2)
+            truck_management = TruckManagement(5)
             truck_management.add_truck(Truck(1))
             truck_management.add_truck(Truck(2))
-            truck_management.allocate_packages()
+            truck_management.allocate_packages(package_table)
             truck_management.deliver_packages()
             eod = True
         elif response == str(3):
