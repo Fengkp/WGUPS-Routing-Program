@@ -37,7 +37,7 @@ def package_interface():
             for package in package_table.get_all():
                 print(package)
         elif response == str(4):
-            main_interface()
+            main()
         else:
             print("Please submit a valid response.")
 
