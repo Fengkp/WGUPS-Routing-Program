@@ -70,6 +70,3 @@ distance_table, package_table = init_tables('../../files/distance_table.csv',
 eod = False
 if __name__ == '__main__':
     main()
-
-
-

@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PackageAllocation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PackageAllocation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TruckManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TruckManagement.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Package.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Package.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View/Interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/View/Interface.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +72,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Package" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="WGUPS-Routing-Program" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/Model" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/Model/Package.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="PackageAllocation" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="WGUPS-Routing-Program" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,9 +138,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Interface" />
+        <item itemvalue="Python.PackageAllocation" />
+        <item itemvalue="Python.Package" />
         <item itemvalue="Python.PrepFiles" />
         <item itemvalue="Python.HashTable" />
-        <item itemvalue="Python.PackageAllocation" />
       </list>
     </recent_temporary>
   </component>
@@ -141,51 +163,46 @@
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
     <state x="999" y="331" key="#Interface/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585602346646" />
-    <state width="2539" height="472" key="GridCell.Tab.0.bottom" timestamp="1585675198049">
+    <state width="2539" height="472" key="GridCell.Tab.0.bottom" timestamp="1585677114147">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.0.bottom/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675198049" />
-    <state width="2539" height="472" key="GridCell.Tab.0.center" timestamp="1585675198049">
+    <state width="2539" height="472" key="GridCell.Tab.0.bottom/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114147" />
+    <state width="2539" height="472" key="GridCell.Tab.0.center" timestamp="1585677114147">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.0.center/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675198049" />
-    <state width="2539" height="472" key="GridCell.Tab.0.left" timestamp="1585675198049">
+    <state width="2539" height="472" key="GridCell.Tab.0.center/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114147" />
+    <state width="2539" height="472" key="GridCell.Tab.0.left" timestamp="1585677114146">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.0.left/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675198049" />
-    <state width="2539" height="472" key="GridCell.Tab.0.right" timestamp="1585675198049">
+    <state width="2539" height="472" key="GridCell.Tab.0.left/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114146" />
+    <state width="2539" height="472" key="GridCell.Tab.0.right" timestamp="1585677114147">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.0.right/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675198049" />
-    <state width="2539" height="472" key="GridCell.Tab.1.bottom" timestamp="1585675199982">
+    <state width="2539" height="472" key="GridCell.Tab.0.right/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114147" />
+    <state width="2539" height="472" key="GridCell.Tab.1.bottom" timestamp="1585677114149">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.1.bottom/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675199982" />
-    <state width="2539" height="472" key="GridCell.Tab.1.center" timestamp="1585675199982">
+    <state width="2539" height="472" key="GridCell.Tab.1.bottom/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114149" />
+    <state width="2539" height="472" key="GridCell.Tab.1.center" timestamp="1585677114147">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.1.center/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675199982" />
-    <state width="2539" height="472" key="GridCell.Tab.1.left" timestamp="1585675199982">
+    <state width="2539" height="472" key="GridCell.Tab.1.center/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114147" />
+    <state width="2539" height="472" key="GridCell.Tab.1.left" timestamp="1585677114147">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.1.left/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675199982" />
-    <state width="2539" height="472" key="GridCell.Tab.1.right" timestamp="1585675199982">
+    <state width="2539" height="472" key="GridCell.Tab.1.left/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114147" />
+    <state width="2539" height="472" key="GridCell.Tab.1.right" timestamp="1585677114148">
       <screen x="0" y="30" width="2560" height="1351" />
     </state>
-    <state width="2539" height="472" key="GridCell.Tab.1.right/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585675199982" />
+    <state width="2539" height="472" key="GridCell.Tab.1.right/0.30.2560.1351/-1920.112.1920.1050@0.30.2560.1351" timestamp="1585677114148" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/Controller/PackageAllocation.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/Controller/PackageAllocation.py</url>
-          <line>10</line>
-          <option name="timeStamp" value="34" />
+          <line>16</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

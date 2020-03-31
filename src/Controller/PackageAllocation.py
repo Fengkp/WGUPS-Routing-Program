@@ -11,27 +11,31 @@ class PackageAllocation(object):
         self.prepare_packages()
         self.current_package = self.packages_to_ship[starting_address][next(iter(self.packages_to_ship[starting_address]))]
         self.delivery_list = []
+        self.delivery_distance = 0.0
 
     def step1(self):
-        while len(self.delivery_list) < 16:
+        while len(self.delivery_list) < 40:
             self.update_package_tables()
             self.load_package()
             self.next_package()
+        print("Distance travelled: " + str(self.delivery_distance))
         return self.delivery_list
 
     def next_package(self):
         for item in self.current_package.get_distance_table().items():
-            if self.packages_to_ship[item[0]]:
-                self.current_package = self.packages_to_ship[item[0]]
+            if self.packages_to_ship.get(item[0]):
+                self.current_package = self.packages_to_ship[item[0]][next(iter(self.packages_to_ship[item[0]]))]
+                self.delivery_distance += item[1]
+                break;
 
     def update_package_tables(self):
         from src.View.Interface import package_table
         package_table.get(self.current_package.get_id()).set_status('On route')
         address_key = self.current_package.get_address() + ',' + self.current_package.get_zip()
-        del self.packages_to_ship[address_key][self.current_package.get_id()]
-
-
-        del self.packages_to_ship[self.current_package.get_id()]        # Split later as the last step
+        if len(self.packages_to_ship[address_key]) > 1:
+            self.packages_to_ship[address_key].pop(self.current_package.get_id())
+        else:
+            del self.packages_to_ship[address_key]
 
     def load_package(self):
         self.delivery_list.append(self.current_package)
