@@ -1,4 +1,4 @@
-from src.Controller import PackageAllocation
+from src.Controller.PackageAllocation import *
 
 
 # Manage truck deliveries
@@ -13,7 +13,8 @@ class TruckManagement(object):
 
 # Call PackageAllocation to determine a list of packages with the most optimal route.
     def allocate_packages(self):
-        PackageAllocation.determine()
+        list_1 = PackageAllocation('195 W Oakland Ave,84115').step1()
+
 
     def deliver_packages(self):
         pass

@@ -33,6 +33,9 @@ class Package(object):
     def get_status(self):
         return self.status
 
+    def set_status(self, new_status):
+        self.status = new_status
+
     def __str__(self):
         return f"""Package ID: {self.id}
     Current Status: {self.status}
