@@ -23,7 +23,24 @@ class PackageAllocation(object):
         print("Distance travelled: " + str(self.delivery_mileage))
         return self.delivery_list, self.delivery_mileage
 
-    def next_package(self):
+    def next_package2(self, current_package, ready_packages):
+        # Get distance table for the current package.
+        potential_packages = current_package.get_distance_table().items()
+        # Go through the current package distance table and see if any of those packages are
+        # ready to ship; starting with the closest.
+        for potential_package in potential_packages:
+            # Both the packages ready to ship and distance tables are indexed by address.
+            # If the distance table package exists in the ready to ship table, get ready to assign.
+            if ready_packages.get(potential_package[0]):
+                # Ready packages are stored in arrays because a package can have the same address.
+                # This picks the first package at that address.
+                first_package_key = next(iter(ready_packages[potential_package[0]]))
+                current_package = ready_packages[potential_package[0]][first_package_key]
+                # We return the next destination to start from, and the distance from the previous package
+                # to this new one.
+                return current_package, potential_package[1]
+
+    def next_package(self, ready_packages):
         for item in self.current_package.get_distance_table().items():
             if self.packages_to_ship.get(item[0]):
                 self.current_package = self.packages_to_ship[item[0]][next(iter(self.packages_to_ship[item[0]]))]
