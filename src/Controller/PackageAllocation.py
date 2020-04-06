@@ -3,20 +3,65 @@
 # For now we'll just use the address.
 # In the future, the first address to be noted will be the hub address.
 # This address/distance will be referenced every time a truck runs out of packages.
+class PackageAllocation(object):
+    def __init__(self, package_table, packages):
+        self.package_table = package_table
+        self.packages_to_ship = packages
+        self.delivery_mileage = 0.0
+        self.current_package = self.set_first_package()
+        self.delivery_list = []
 
-def next_package(current_package, ready_packages):
-    # Get distance table for the current package.
-    potential_packages = current_package.get_distance_table().items()
-    # Go through the current package distance table and see if any of those packages are
-    # ready to ship; starting with the closest.
-    for potential_package in potential_packages:
-        # Both the packages ready to ship and distance tables are indexed by address.
-        # If the distance table package exists in the ready to ship table, get ready to assign.
-        if ready_packages.get(potential_package[0]):
-            # Ready packages are stored in arrays because a package can have the same address.
-            # This picks the first package at that address.
-            first_package_key = next(iter(ready_packages[potential_package[0]]))
-            current_package = ready_packages[potential_package[0]][first_package_key]
-            # We return the next destination to start from, and the distance from the previous package
-            # to this new one.
-            return current_package, potential_package[1]
+    def deliver_packages(self, capacity):
+        while len(self.delivery_list) < capacity:
+            if len(self.packages_to_ship) == 0:
+                break
+            self.update_status('On route')
+            self.update_packages_to_ship()
+            self.load_package()
+            self.update_status('Delivered')
+            self.next_package()
+        print("Distance travelled: " + str(self.delivery_mileage))
+        return self.delivery_list, self.delivery_mileage
+
+    def next_package2(self, current_package, ready_packages):
+        # Get distance table for the current package.
+        potential_packages = current_package.get_distance_table().items()
+        # Go through the current package distance table and see if any of those packages are
+        # ready to ship; starting with the closest.
+        for potential_package in potential_packages:
+            # Both the packages ready to ship and distance tables are indexed by address.
+            # If the distance table package exists in the ready to ship table, get ready to assign.
+            if ready_packages.get(potential_package[0]):
+                # Ready packages are stored in arrays because a package can have the same address.
+                # This picks the first package at that address.
+                first_package_key = next(iter(ready_packages[potential_package[0]]))
+                current_package = ready_packages[potential_package[0]][first_package_key]
+                # We return the next destination to start from, and the distance from the previous package
+                # to this new one.
+                return current_package, potential_package[1]
+
+    def next_package(self, ready_packages):
+        for item in self.current_package.get_distance_table().items():
+            if self.packages_to_ship.get(item[0]):
+                self.current_package = self.packages_to_ship[item[0]][next(iter(self.packages_to_ship[item[0]]))]
+                self.delivery_mileage += item[1]
+                break
+
+    def update_packages_to_ship(self):
+        address_key = self.current_package.get_address() + ',' + self.current_package.get_zip()
+        if len(self.packages_to_ship[address_key]) > 1:
+            self.packages_to_ship[address_key].pop(self.current_package.get_id())
+        else:
+            del self.packages_to_ship[address_key]
+
+    def update_status(self, new_status):
+        self.package_table.get(self.current_package.get_id()).set_status(new_status)
+
+    def load_package(self):
+        self.delivery_list.append(self.current_package)
+
+    def set_first_package(self):
+        package_list = self.packages_to_ship[next(iter(self.packages_to_ship))]
+        first_package = package_list[next(iter(package_list))]
+        self.delivery_mileage += first_package.get_hub_distance()
+        return first_package
