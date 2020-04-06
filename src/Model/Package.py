@@ -15,6 +15,9 @@ class Package(object):
         self.status = 'Preparing for shipment'
         # 'Preparing for shipment', 'On route', 'Delivered'
 
+    def get_address_key(self):
+        return self.address + ',' + self.zip
+
     def set_distance_table(self, distances):
         self.distance_table = distances
 
