@@ -9,9 +9,9 @@ class Truck(object):
     def reset_package_count(self):
         self.package_count = 0
 
-    def add_delivery(self, delivery, mileage):
+    def add_delivery(self, package, mileage):
         self.package_count += 1
-        self.deliveries.append(delivery)
+        self.deliveries.append(package)
         self.add_mileage(mileage)
 
     def get_last_package(self):

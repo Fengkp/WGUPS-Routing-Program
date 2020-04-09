@@ -1,3 +1,5 @@
+import datetime
+
 class Package(object):
     def __init__(self, new_package):
         self.id = new_package[0]
@@ -13,7 +15,7 @@ class Package(object):
         else:
             self.notes = new_package[7]
         self.status = 'Preparing for shipment'
-        # 'Preparing for shipment', 'On route', 'Delivered'
+        self.time_delivered = None
 
     def get_address_key(self):
         return self.address + ',' + self.zip
@@ -45,11 +47,17 @@ class Package(object):
     def set_hub_distance(self, distance):
         self.hub_distance = distance
 
+    def set_time_delivered(self, time):
+        self.time_delivered = time
+
     def __str__(self):
-        return f"""Package ID: {self.id}
+        package_info = f"""Package ID: {self.id}
     Current Status: {self.status}
     Delivery Address: {self.address}, {self.city}, {self.zip}
     Weight: {self.weight}
     Deliver By: {self.deadline}
     Special Notes: {self.notes}
     """
+        if self.status == 'Delivered':
+            package_info += "Delivered at: " + str(self.time_delivered) + '\n'
+        return package_info

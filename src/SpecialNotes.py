@@ -2,7 +2,7 @@
 # Use union combine? as to not get duplicates
 # Use these lists to remove packages from ready_packages
 # Deliver 1 at a time as we have it
-def before_9(package_table):
+def special_notes(package_table):
     before_9 = get_delivery_list(['15'], package_table)
     before_10_30 = get_delivery_list(['1', '6', '13', '14', '16', '20', '25', '29', '30', '31', '34', '37', '40'],
                                      package_table)
