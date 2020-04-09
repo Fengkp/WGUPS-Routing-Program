@@ -1,6 +1,6 @@
 from src.Model.Truck import Truck
 from src.PrepFiles import *
-from src.Controller.TruckManagement import deliver_packages
+from src.Controller.TruckManagement import *
 
 
 # **Handle exceptions
@@ -53,7 +53,7 @@ def main():
         if response == str(1):
             package_interface()
         elif response == str(2) and eod is False:
-            print(deliver_packages(package_table, [Truck(), Truck()]))
+            print(deliver_packages(package_table, [Truck(1), Truck(2)]))
             eod = True
         elif response == str(3):
             exit()

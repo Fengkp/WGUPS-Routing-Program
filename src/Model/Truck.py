@@ -1,5 +1,6 @@
 class Truck(object):
-    def __init__(self):
+    def __init__(self, id):
+        self.id = id
         self.capacity = 16      # Maximum amount of packages a truck can carry.
         self.average_speed = 18     # ...in miles per hour
         self.deliveries = []
@@ -31,3 +32,6 @@ class Truck(object):
 
     def get_deliveries(self):
         return self.deliveries
+
+    def get_id(self):
+        return self.id
