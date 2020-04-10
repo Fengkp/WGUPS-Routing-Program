@@ -23,9 +23,9 @@ def next_package(current_package, ready_packages):
             return current_package, potential_package[1]
 
 
-def add_package(package, package_list, package_table):
+def add_package(package, package_list):
     if package.get_status() == 'Preparing for shipment':
-        update_package(package, 'On route', datetime.time(0), package_table)
+        update_package(package, 'On route', datetime.time(0))
         if package_list.get(package.get_address_key()):
             package_list[package.get_address_key()].update({package.get_id(): package})
         else:
@@ -35,8 +35,7 @@ def add_package(package, package_list, package_table):
 def add_delayed_packages(delivery_list, package_table):
     for package_id in ['6', '25', '28', '32']:
         package = package_table.get(package_id)
-        update_package(package, 'Preparing for shipment', datetime.time(0), package_table)
-        add_package(package, delivery_list, package_table)
+        add_package(package, delivery_list)
     return delivery_list
 
 
@@ -45,14 +44,14 @@ def set_priority_packages(package_table):
     priority_list = dict()
     for package_id in time_crunch_list:
         package = package_table.get(package_id)
-        add_package(package, priority_list, package_table)
+        add_package(package, priority_list)
     return priority_list
 
 
 def set_regular_packages(package_table):
     regular_list = dict()
     for package in package_table.get_all():
-        add_package(package, regular_list, package_table)
+        add_package(package, regular_list)
     return regular_list
 
 
@@ -81,9 +80,3 @@ def time_crunch_packages():
     time_crunch_list.union(deliver_together)
     time_crunch_list.difference(delayed)
     return time_crunch_list
-
-
-def update_delayed_packages(package_table):
-    for package_id in ['6', '25', '28', '32']:
-        package = package_table.get(package_id)
-        update_package(package, 'Delayed', datetime.time(0), package_table)
