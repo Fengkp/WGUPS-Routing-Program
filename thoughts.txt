@@ -1,5 +1,0 @@
-packages to be delivered together unaccounted for
-some packages not delivered on time....
-also need to account for wrong address
-
-Split packages into delivery lists

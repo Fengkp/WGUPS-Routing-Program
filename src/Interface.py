@@ -1,6 +1,6 @@
-from src.Model.Truck import Truck
+from src.Objects.Truck import Truck
+from src.DeliverPackages import deliver_packages
 from src.PrepFiles import *
-from src.Controller.TruckManagement import *
 
 
 # **Handle exceptions
@@ -53,7 +53,7 @@ def main():
         if response == str(1):
             package_interface()
         elif response == str(2) and eod is False:
-            TruckManagement(package_table, [Truck(1), Truck(2)])
+            deliver_packages([Truck(1), Truck(2)], package_table)
             eod = True
         elif response == str(3):
             exit()
@@ -61,7 +61,7 @@ def main():
             print("Please submit a valid response.")
 
 
-distance_table, package_table = init_tables('../../files/distance_table.csv',
+distance_table, package_table = init_tables('../files/distance_table.csv',
                                             open('../../files/packages.csv', 'r'))
 eod = False
 if __name__ == '__main__':

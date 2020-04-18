@@ -5,21 +5,20 @@ class Truck(object):
         self.average_speed = 18     # ...in miles per hour
         self.deliveries = []
         self.mileage = 0
-        self.package_count = 0
+        self.prev_mileage = 0
 
-    def reset_package_count(self):
-        self.package_count = 0
+    def add_deliveries(self, packages):
+        self.deliveries += packages
+        self.prev_mileage = 0
+        for package, distance in packages:
+            self.prev_mileage += distance
+        self.prev_mileage += packages[-1][0].get_hub_distance()
+        self.add_mileage(self.prev_mileage)
 
     def add_delivery(self, package, mileage):
         self.package_count += 1
         self.deliveries.append(package)
         self.add_mileage(mileage)
-
-    def get_last_package(self):
-        return self.deliveries[-1]
-
-    def get_capacity(self):
-        return self.capacity
 
     def add_mileage(self, mileage):
         self.mileage += mileage
@@ -27,11 +26,8 @@ class Truck(object):
     def get_mileage(self):
         return self.mileage
 
-    def get_package_count(self):
-        return self.package_count
-
-    def get_deliveries(self):
-        return self.deliveries
+    def get_prev_mileage(self):
+        return self.prev_mileage
 
     def get_id(self):
         return self.id

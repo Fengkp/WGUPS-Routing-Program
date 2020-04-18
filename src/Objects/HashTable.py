@@ -34,8 +34,9 @@ class Table:
 
     def get_all(self):
         package_list = []
-        for i in range(1, self.size + 1):
-            package_list.append(self.get(str(i)))
+        for bucket in self.table:
+            for item in bucket:
+                package_list.append(item[1])
         return package_list
 
     def get_size(self):

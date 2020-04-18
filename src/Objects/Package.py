@@ -50,6 +50,9 @@ class Package(object):
     def set_time_delivered(self, time):
         self.time_delivered = time
 
+    def get_notes(self):
+        return self.notes
+
     def __str__(self):
         package_info = f"""Package ID: {self.id}
     Current Status: {self.status}

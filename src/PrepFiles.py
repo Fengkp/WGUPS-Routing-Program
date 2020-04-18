@@ -1,5 +1,5 @@
-from src.Model.HashTable import Table
-from src.Model.Package import Package
+from src.Objects.HashTable import Table
+from src.Objects.Package import Package
 import csv
 import operator
 
@@ -8,7 +8,6 @@ def init_tables(distance_file_name, packages_file):
     distance_table = fill_distance_table(distance_file_name)
     package_table = fill_package_table(packages_file, distance_table)
     return distance_table, package_table
-
 
 def fill_package_table(packages_file, distance_table):
     new_table = Table(100)
@@ -20,7 +19,6 @@ def fill_package_table(packages_file, distance_table):
         new_table.insert(package.get_id(), package)
     return new_table
 
-
 def fill_distance_table(distance_file_name):
     with open(distance_file_name, newline='') as csv_file:
         reader = csv.DictReader(csv_file)
@@ -28,7 +26,6 @@ def fill_distance_table(distance_file_name):
         for row in reader:
             distance_dict.update({row['ORIGIN']: sort_row(row)})
         return distance_dict
-
 
 # This method changes and then sorts the values of a given dictionary. The method first deletes the header
 # as it strictly contains a string value. Values can then be changed to type float, and then the dictionary
