@@ -20,6 +20,9 @@ class Package(object):
     def get_address_key(self):
         return self.address + ',' + self.zip
 
+    def set_address(self, address):
+        self.address = address
+
     def set_distance_table(self, distances):
         self.distance_table = distances
 
@@ -34,6 +37,9 @@ class Package(object):
 
     def get_zip(self):
         return self.zip
+
+    def set_zip(self, zip):
+        self.zip = zip
 
     def get_status(self):
         return self.status

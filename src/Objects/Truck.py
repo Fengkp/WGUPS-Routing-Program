@@ -20,11 +20,17 @@ class Truck(object):
         self.deliveries.append(package)
         self.add_mileage(mileage)
 
+    def get_deliveries(self):
+        return self.deliveries
+
     def add_mileage(self, mileage):
         self.mileage += mileage
 
     def get_mileage(self):
         return self.mileage
+
+    def adjust_mileage(self, amount):
+        self.mileage += amount
 
     def get_prev_mileage(self):
         return self.prev_mileage

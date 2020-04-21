@@ -53,7 +53,12 @@ def main():
         if response == str(1):
             package_interface()
         elif response == str(2) and eod is False:
-            deliver_packages([Truck(1), Truck(2)], package_table)
+            trucks = [Truck(1), Truck(2)]
+            deliver_packages(trucks, package_table)
+            total = 0
+            for truck in trucks:
+                total += truck.get_mileage()
+            print("Total mileage: " + str(total))
             eod = True
         elif response == str(3):
             exit()
@@ -62,7 +67,7 @@ def main():
 
 
 distance_table, package_table = init_tables('../files/distance_table.csv',
-                                            open('../../files/packages.csv', 'r'))
+                                            open('../files/packages.csv', 'r'))
 eod = False
 if __name__ == '__main__':
     main()
