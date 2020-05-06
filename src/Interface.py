@@ -1,9 +1,11 @@
-from src.Objects.Truck import Truck
-from src.DeliverPackages import deliver_packages
+# Feng Parra ID: 001183862
 from src.PrepFiles import *
 
 
 # **Handle exceptions
+from src.Deliver import truck1_delivery
+
+
 def new_package_prompt(package_count):
     print("\nEnter the following information, separated by a ','.")
     print("(Address, City, State, Zip Code, Deadline, Weight, Special Notes)")
@@ -53,12 +55,7 @@ def main():
         if response == str(1):
             package_interface()
         elif response == str(2) and eod is False:
-            trucks = [Truck(1), Truck(2)]
-            deliver_packages(trucks, package_table)
-            total = 0
-            for truck in trucks:
-                total += truck.get_mileage()
-            print("Total mileage: " + str(total))
+            print(truck1_delivery(package_table, distance_table))
             eod = True
         elif response == str(3):
             exit()

@@ -1,6 +1,6 @@
-import datetime
-
+# Feng Parra ID: 001183862
 class Package(object):
+
     def __init__(self, new_package):
         self.id = new_package[0]
         self.address = new_package[1]
@@ -8,8 +8,6 @@ class Package(object):
         self.zip = new_package[4]
         self.deadline = new_package[5]
         self.weight = new_package[6]
-        self.hub_distance = 0.0
-        self.distance_table = dict()
         if new_package[7] == "\n":
             self.notes = "N/A"
         else:
@@ -22,12 +20,6 @@ class Package(object):
 
     def set_address(self, address):
         self.address = address
-
-    def set_distance_table(self, distances):
-        self.distance_table = distances
-
-    def get_distance_table(self):
-        return self.distance_table
 
     def get_id(self):
         return self.id
@@ -46,12 +38,6 @@ class Package(object):
 
     def set_status(self, new_status):
         self.status = new_status
-
-    def get_hub_distance(self):
-        return self.hub_distance
-
-    def set_hub_distance(self, distance):
-        self.hub_distance = distance
 
     def set_time_delivered(self, time):
         self.time_delivered = time

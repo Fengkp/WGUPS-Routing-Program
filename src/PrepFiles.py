@@ -1,23 +1,24 @@
+# Feng Parra ID: 001183862
+import operator
 from src.Objects.HashTable import Table
 from src.Objects.Package import Package
 import csv
-import operator
 
 
 def init_tables(distance_file_name, packages_file):
     distance_table = fill_distance_table(distance_file_name)
-    package_table = fill_package_table(packages_file, distance_table)
+    package_table = fill_package_table(packages_file)
     return distance_table, package_table
 
-def fill_package_table(packages_file, distance_table):
+
+def fill_package_table(packages_file):
     new_table = Table(100)
     lines = packages_file.readlines()
     for line in lines:
         package = Package(line.split(','))
-        package.set_distance_table(distance_table[package.get_address() + ',' + package.get_zip()])
-        package.set_hub_distance(package.get_distance_table()['HUB'])
         new_table.insert(package.get_id(), package)
     return new_table
+
 
 def fill_distance_table(distance_file_name):
     with open(distance_file_name, newline='') as csv_file:
