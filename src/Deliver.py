@@ -2,14 +2,19 @@
 # Delivery algorithm presented within truck1_delivery.
 import datetime
 
-# Creates delivery lists for truck 1 and 2.
+# Creates delivery list for truck 1 using various stipulations to ensure packages are delivered on time and correctly.
+# The next package to be considered for delivery is determined using a greedy algorithm.
+# The algorithm uses the last delivered package, and finds the lowest weight and its associated address.
+# It checks if the package has already been delivered, if it isn't, it is added to the list, and the process repeats.
+# As packages are being considered, the stipulations are handled manually through the use of several if statements.
 # Truck 1 starts delivering at 8 AM, while truck 2 waits until the delayed packages arrive.
-def truck1_delivery(table, table2):
+# The Truck 2 delivery list will be created within a separate function similar to this one.
+def truck1_delivery(pack_table, dis_table):
     # Initialize the variables to be used throughout the algorithm.
-    global package_table, distance_table, available_packages, package_count, truck2_packages
-    package_table = table
-    distance_table = table2
-    available_packages = get_packages(package_table.get_all())
+    global package_table, distance_table, unshipped_packages, package_count, truck2_packages
+    package_table = pack_table
+    distance_table = dis_table
+    unshipped_packages = get_packages(package_table.get_all())
     truck1_list = list()
     # This time is associated with this function, as the delivery times will be different between truck 1 and truck 2.
     current_time = datetime.datetime(datetime.datetime.today().year, datetime.datetime.today().month,
@@ -33,15 +38,15 @@ def truck1_delivery(table, table2):
     package_count = 1
 
     # The trucks will continue to be loaded until there are no packages left to deliver.
-    # Every time a package is added to a list, it is removed from the available_packages.
-    while len(available_packages) > 0:
+    # Every time a package is added to a list, it is removed from the unshipped_packages.
+    while len(unshipped_packages) > 0:
         # Takes the last delivered package, and finds the lowest weight and its associated address.
         for address, weight in distance_table[current_package.get_address_key()].items():
             # Checks if a non-delivered package matches the current closest address.
             # If not, we move on to the next weight lowest weight and the address associated with it.
-            if available_packages.get(address):
+            if unshipped_packages.get(address):
                 # Packages can have the same address, so we navigate through the table to find the first available.
-                for package_id, package in available_packages[address].items():
+                for package_id, package in unshipped_packages[address].items():
                     # Sets the current package as eligible to be delivered next.
                     if package_id not in truck2_packages:
                         current_package = package
@@ -107,8 +112,8 @@ def truck2_delivery(current_time):
     add_delivery(current_package, delivery_list, current_time)
     while len(delivery_list) < 9:
         for address, weight in distance_table[current_package.get_address_key()].items():
-            if available_packages.get(address):
-                for package_id, package in available_packages[address].items():
+            if unshipped_packages.get(address):
+                for package_id, package in unshipped_packages[address].items():
                     if package_id in truck2_packages:
                         current_package = package
                         package_eligible = True
@@ -130,22 +135,27 @@ def add_delivery(package, delivery_list, current_time):
 
 # Removes package from being available.
 def update_list(package):
-    if len(available_packages[package.get_address_key()]) > 1:
-        package_list = available_packages[package.get_address_key()]
+    if len(unshipped_packages[package.get_address_key()]) > 1:
+        package_list = unshipped_packages[package.get_address_key()]
         del package_list[package.get_id()]
     else:
-        del available_packages[package.get_address_key()]
+        del unshipped_packages[package.get_address_key()]
 
 # Adjusts the time given based on miles travelled.
 def add_time(current_time, miles):
+    # 18 is the average speed of the trucks.
     elapsed_seconds = 3600 / 18 * miles
     current_time = current_time + datetime.timedelta(seconds=elapsed_seconds)
     return current_time
 
-# Creates a package table filled with packages available to be delivered.
+# Creates a new package table filled with packages available to be delivered.
+# Since the original hash table containing our packages is keyed by package ID, and the weight table is keyed by
+# address, then it makes it difficult to locate the next package. Creating a new table with the address as a key makes
+# it easier to check a package and subsequently, add it to our delivery list.
 def get_packages(package_list):
     address_table = dict()
     for package in package_list:
+        # Because there are multiple packages with the same address, we need to make sure they don't collide.
         if address_table.get(package.get_address_key()):
             address_table[package.get_address_key()].update({package.get_id(): package})
         else:
@@ -156,7 +166,7 @@ def get_packages(package_list):
 # Globalized variables frequently used by our functions to reduce extra parameters.
 package_table = None
 distance_table = None
-available_packages = None
+unshipped_packages = None
 package_count = 0
 # Packages that are delayed and have strict conditions will be delivered on truck 2 starting at 9:05.
 truck2_packages = ['6', '25', '28', '32', '31', '3', '18', '36', '38']

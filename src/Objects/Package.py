@@ -11,7 +11,7 @@ class Package(object):
         if new_package[7] == "\n":
             self.notes = "N/A"
         else:
-            self.notes = new_package[7]
+            self.notes = new_package[7].rstrip()
         self.status = 'Preparing for shipment'
         self.time_delivered = None
 
@@ -42,17 +42,13 @@ class Package(object):
     def set_time_delivered(self, time):
         self.time_delivered = time
 
+    def get_time_delivered(self):
+        return self.time_delivered
+
     def get_notes(self):
         return self.notes
 
     def __str__(self):
-        package_info = f"""Package ID: {self.id}
-    Current Status: {self.status}
-    Delivery Address: {self.address}, {self.city}, {self.zip}
-    Weight: {self.weight}
-    Deliver By: {self.deadline}
-    Special Notes: {self.notes}
-    """
-        if self.status == 'Delivered':
-            package_info += "Delivered at: " + str(self.time_delivered) + '\n'
+        package_info = f"PACKAGE ID: {self.id}\tADDRESS: {self.address}, {self.city}, {self.zip}\tWEIGHT: " \
+                       f"{self.weight}\tDEADLINE: {self.deadline}\tSTATUS: Delivered({str(self.time_delivered)})"
         return package_info

@@ -10,7 +10,7 @@ def init_tables(distance_file_name, packages_file):
     package_table = fill_package_table(packages_file)
     return distance_table, package_table
 
-
+# Reads the packages.csv, and for each line creates a package object that is then added to our hash table.
 def fill_package_table(packages_file):
     new_table = Table(100)
     lines = packages_file.readlines()
@@ -19,7 +19,9 @@ def fill_package_table(packages_file):
         new_table.insert(package.get_id(), package)
     return new_table
 
-
+# Creates the weighted graph by reading the data from the csv file as a dictionary entry.
+# Using dictionaries allows a weight to be found by simply using the the addresses of two packages
+# and then getting the associated weight/distance between the two.
 def fill_distance_table(distance_file_name):
     with open(distance_file_name, newline='') as csv_file:
         reader = csv.DictReader(csv_file)

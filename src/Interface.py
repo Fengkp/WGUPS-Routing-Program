@@ -1,4 +1,6 @@
 # Feng Parra ID: 001183862
+import datetime
+
 from src.PrepFiles import *
 
 
@@ -20,14 +22,15 @@ def find_package_prompt():
     return input("> ")
 
 
-def package_interface():
+def main():
     global package_table
     while True:
         print("Select an option using the number keys:")
         print("[1] Insert new package...")
         print("[2] Look up package...")
         print("[3] View all packages...")
-        print("[4] Return...")
+        print("[4] Look up time...")
+        print("[5] Exit...")
         response = input("> ")
         if response == str(1):
             new_package = new_package_prompt(package_table.get_size())
@@ -38,26 +41,25 @@ def package_interface():
         elif response == str(3):
             for package in package_table.get_all():
                 print(package)
+            print()
         elif response == str(4):
-            main()
-        else:
-            print("Please submit a valid response.")
-
-
-def main():
-    while True:
-        global eod
-        global package_table
-        print("[1] Manage Packages...")
-        print("[2] Start Deliveries...")
-        print("[3] Exit...")
-        response = input("> ")
-        if response == str(1):
-            package_interface()
-        elif response == str(2) and eod is False:
-            print(truck1_delivery(package_table, distance_table))
-            eod = True
-        elif response == str(3):
+            packages_found = False
+            time_frame = []
+            print("\n**enter numbers in 24 hour format (1 PM is 13)")
+            for i in range(1, 3):
+                hour = input(f"Enter hour {i}: ")
+                minute = input(f"Enter minute {i}: ")
+                print()
+                time_frame.append(datetime.time(int(hour), int(minute)))
+            for package in package_table.get_all():
+                package_time = package.get_time_delivered().time()
+                if time_frame[0] <= package_time <= time_frame[1]:
+                    packages_found = True
+                    print(package)
+            if packages_found is False:
+                print("No packages delivered within this time frame.")
+            print()
+        elif response == str(5):
             exit()
         else:
             print("Please submit a valid response.")
@@ -65,6 +67,6 @@ def main():
 
 distance_table, package_table = init_tables('../files/distance_table.csv',
                                             open('../files/packages.csv', 'r'))
-eod = False
+truck1_delivery(package_table, distance_table)
 if __name__ == '__main__':
     main()
